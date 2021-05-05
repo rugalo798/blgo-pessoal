@@ -3,6 +3,10 @@ const app = express();
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
 
+//Importando os controllers
+const categoriesController = require("./categories/CategoriesController");
+const articlesController = require("./articles/ArticlesController");
+
 //Selecionando a view engine
 app.set("view engine", "ejs");
 
@@ -22,6 +26,10 @@ connection
   .catch((err) => {
     console.log(`Ocorreu um erro: ${err}`);
   });
+
+//Configurando o Controllers de categorias e artigos
+app.use("/", categoriesController);
+app.use("/", articlesController);
 
 //Criando as rotas
 app.get("/", (req, res) => {
